@@ -1,0 +1,9 @@
+#!/bin/csh
+
+/ad/eng/opt/mentor/modelsim/modeltech/bin/vlib work
+
+/ad/eng/opt/mentor/modelsim/modeltech/bin/vcom -f ../rtl/aes_cipher_block_128.f
+/ad/eng/opt/mentor/modelsim/modeltech/bin/vcom ../ip/dafali/aes_128/aes_cipher_block_128_TB.vhdl
+
+#/ad/eng/opt/mentor/modelsim/modeltech/bin/vsim -voptargs=+acc work.tb_RISC_V_Core ${vsimargs} -do ./run.tcl
+/ad/eng/opt/mentor/modelsim/modeltech/bin/vsim -voptargs=+acc work.aes_cipher_block_128_TB -do ./run_aes_sim.tcl
