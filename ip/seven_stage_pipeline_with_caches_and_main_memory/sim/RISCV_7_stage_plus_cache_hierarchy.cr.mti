@@ -1,0 +1,246 @@
+/home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/bsram.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/bsram.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module BSRAM
+
+Top level modules:
+	BSRAM
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/coherence_controller.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/coherence_controller.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module coherence_controller
+
+Top level modules:
+	coherence_controller
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/RISC_V_Core.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/RISC_V_Core.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module RISC_V_Core
+
+Top level modules:
+	RISC_V_Core
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/regFile.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/regFile.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module regFile
+
+Top level modules:
+	regFile
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/priority_encoder.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/priority_encoder.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module priority_encoder
+
+Top level modules:
+	--none--
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/arbiter.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/arbiter.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module arbiter
+
+Top level modules:
+	arbiter
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/execute_pipe.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/execute_pipe.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module execute_pipe_unit
+
+Top level modules:
+	execute_pipe_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/bram_old.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/bram_old.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module BRAM
+
+Top level modules:
+	BRAM
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/stallControl.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/stallControl.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module stall_and_bypass_control_unit
+
+Top level modules:
+	stall_and_bypass_control_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/decode_pipe.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/decode_pipe.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module decode_pipe_unit
+
+Top level modules:
+	decode_pipe_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/fetch.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/fetch.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module fetch_unit
+
+Top level modules:
+	fetch_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/fifo.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/fifo.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module fifo
+
+Top level modules:
+	fifo
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/fifo_arbiter.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/fifo_arbiter.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module fifo_arbiter
+
+Top level modules:
+	fifo_arbiter
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/execute.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/execute.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module execution_unit
+
+Top level modules:
+	execution_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/main_memory_interface.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/main_memory_interface.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module main_memory_interface
+
+Top level modules:
+	main_memory_interface
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/memory_hierarchy.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/memory_hierarchy.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module memory_hierarchy
+
+Top level modules:
+	memory_hierarchy
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/memory_pipe.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/memory_pipe.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module memory_pipe_unit
+
+Top level modules:
+	memory_pipe_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/Lxcache.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/Lxcache.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module Lxcache
+
+Top level modules:
+	Lxcache
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/fetch_pipe.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/fetch_pipe.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module fetch_pipe_unit
+
+Top level modules:
+	fetch_pipe_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/one_hot_decoder.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/one_hot_decoder.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module one_hot_decoder
+
+Top level modules:
+	--none--
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/dual_port_ram.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/dual_port_ram.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module dual_port_ram
+
+Top level modules:
+	dual_port_ram
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/L1cache.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/L1cache.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module L1cache
+
+Top level modules:
+	L1cache
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/control_unit.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/control_unit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module control_unit
+
+Top level modules:
+	control_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/tb/tb_RISC_V_Core.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/tb/tb_RISC_V_Core.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module tb_RISC_V_Core
+
+Top level modules:
+	tb_RISC_V_Core
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/bram.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/bram.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module bram
+
+Top level modules:
+	bram
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/memory.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module memory_unit
+
+Top level modules:
+	memory_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/replacement_controller.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/replacement_controller.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module replacement_controller
+
+Top level modules:
+	replacement_controller
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module LRU
+
+Top level modules:
+	LRU
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/ALU.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/ALU.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/main_memory.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/main_memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module main_memory
+
+Top level modules:
+	main_memory
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/writeback.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/writeback.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module writeback_unit
+
+Top level modules:
+	writeback_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/decode.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/sim/decode.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module decode_unit
+
+Top level modules:
+	decode_unit
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/replacement_controller_lx.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/replacement_controller_lx.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module replacement_controller_lx
+
+Top level modules:
+	replacement_controller_lx
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/empty_way_select.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/empty_way_select.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module empty_way_select
+
+Top level modules:
+	empty_way_select
+
+} {} {}} /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru_lx.v {1 {vlog -work work -stats=none /home/sahanb/ownCloud/1-EC700-HW_Security/1-workspace/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru_lx.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module LRU_LX
+
+Top level modules:
+	LRU_LX
+
+} {} {}}
