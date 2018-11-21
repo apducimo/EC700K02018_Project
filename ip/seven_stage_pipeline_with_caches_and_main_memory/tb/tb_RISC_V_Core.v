@@ -23,7 +23,11 @@
 
  module tb_RISC_V_Core(); 
 
+parameter INDEX_BITS = 6;
+parameter OFFSET_BITS = 3;
+parameter ADDRESS_BITS = 12;
 parameter LOG_FILE = "mandelbrot_instructions_dcache.log";
+parameter PROGRAM  = "../short_mandelbrot.mem";
  
 reg clock, reset, start; 
 reg [19:0] prog_address; 
@@ -40,25 +44,28 @@ wire        to_peripheral_valid;
 
 integer log_file;
 
-
-// module RISC_V_Core #(parameter CORE = 0, DATA_WIDTH = 32, INDEX_BITS = 6, OFFSET_BITS = 3, ADDRESS_BITS = 20)
-RISC_V_Core CORE (
-		  .clock(clock), 
-		  .reset(reset), 
-		  .start(start), 
-		  .prog_address(prog_address[11:0]),	
-		  .from_peripheral(from_peripheral),
-       	  .from_peripheral_data(from_peripheral_data),
-          .from_peripheral_valid(from_peripheral_valid),
-          .to_peripheral(to_peripheral),
-		  .to_peripheral_data(to_peripheral_data),
-		  .to_peripheral_valid(to_peripheral_valid),
+RISC_V_Core #(
+  .INDEX_BITS(INDEX_BITS),
+  .OFFSET_BITS(OFFSET_BITS),
+  .ADDRESS_BITS(ADDRESS_BITS),
+  .PROGRAM(PROGRAM)
+  ) CORE (
+    .clock(clock), 
+    .reset(reset), 
+    .start(start), 
+    .prog_address(prog_address[11:0]),	
+    .from_peripheral(from_peripheral),
+    .from_peripheral_data(from_peripheral_data),
+    .from_peripheral_valid(from_peripheral_valid),
+    .to_peripheral(to_peripheral),
+    .to_peripheral_data(to_peripheral_data),
+    .to_peripheral_valid(to_peripheral_valid),
           
-          .isp_address(12'd0),
-          .isp_data(0),
-          .isp_write(1'b0),
-		  .report(report),
-		  .current_PC()
+    .isp_address(12'd0),
+    .isp_data(0),
+    .isp_write(1'b0),
+    .report(report),
+    .current_PC()
 ); 
 
     // Clock generator
@@ -87,7 +94,7 @@ RISC_V_Core CORE (
 
 
 // print cache read addresses and data out.
-reg [CORE.ADDRESS_BITS-1 : 0] addr0, addr1;
+reg [ADDRESS_BITS-1 : 0] addr0, addr1;
 reg req0, req1;
 
 always @(negedge clock)begin
