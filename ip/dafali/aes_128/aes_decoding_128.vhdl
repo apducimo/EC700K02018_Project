@@ -6,7 +6,7 @@
 -- Author     : Rachid DAFALI  
 -- Company    : Personal project
 -- Created    : 2012-11-21
--- Last update: 2012-11-23
+-- Last update: 2018-11-18
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -125,6 +125,7 @@ begin
   cipher_key_expansion_ctrl : process (in_clk, in_reset) is
   begin
     if in_reset = '0' then
+      out_ready <= '1';
       step                   <= "00";
       expansion_round        <= 10;
       out_expanded_key_start <= '0';
