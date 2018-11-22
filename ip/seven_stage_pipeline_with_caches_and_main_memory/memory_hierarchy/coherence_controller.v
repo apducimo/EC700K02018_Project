@@ -5,6 +5,7 @@
 module coherence_controller #(
 parameter STATUS_BITS    = 2,
           COHERENCE_BITS = 2,
+		  INDEX_BITS     = 8,
           OFFSET_BITS    = 2,
           DATA_WIDTH     = 8,
 	      ADDRESS_WIDTH  = 12,
@@ -165,7 +166,8 @@ generate
 	for(i=0; i<NUM_CACHES; i=i+1)begin : TRACK_C_MSGS
 		assign tr_en_access[i]       = (serve_next == i) ? 1 
 			                         : (w_coherence_msg_in[i] == C_EN_ACCESS) ? 1
-                                     : (w_address_in[i] == coherence_address) & (w_msg_in[i] != w_msg_out[i]) ? 1
+                                     : (w_address_in[i][0 +: INDEX_BITS] == coherence_address[0 +: INDEX_BITS]) & 
+									   (w_msg_in[i] != w_msg_out[i]) ? 1
                                      : 0;
 		assign tr_coherence_wb[i]    = (w_coherence_msg_in[i] == C_WB) ? 1 : 0;
 		assign tr_coherence_flush[i] = (w_coherence_msg_in[i] == C_FLUSH) ? 1 : 0;

@@ -115,7 +115,6 @@ assign mem2cache_msg0     = Lx2cache_msg[0*MSG_BITS +: MSG_BITS];
 assign mem2cache_msg1     = Lx2cache_msg[1*MSG_BITS +: MSG_BITS];
 
 
-
 //instantiate modules
 //L1 cache 0
 L1cache #(STATUS_BITS_L1, COHERENCE_BITS, OFFSET_BITS, DATA_WIDTH, NUMBER_OF_WAYS_L1,
@@ -125,7 +124,7 @@ L1cache #(STATUS_BITS_L1, COHERENCE_BITS, OFFSET_BITS, DATA_WIDTH, NUMBER_OF_WAY
           mem2cache_data0, mem2cache_address0, cache2mem_msg0, cache2mem_data0, 
           cache2mem_address0, coherence_msg_in0, coherence_address0, coherence_msg_out0,
           coherence_data0);
-
+		  
 //L1 cache 1
 L1cache #(STATUS_BITS_L1, COHERENCE_BITS, OFFSET_BITS, DATA_WIDTH, NUMBER_OF_WAYS_L1,
           REPLACEMENT_MODE_BITS, ADDRESS_WIDTH, INDEX_BITS_L1, MSG_BITS, 1, 1 )
@@ -134,14 +133,14 @@ L1cache #(STATUS_BITS_L1, COHERENCE_BITS, OFFSET_BITS, DATA_WIDTH, NUMBER_OF_WAY
           mem2cache_data1, mem2cache_address1, cache2mem_msg1, cache2mem_data1, 
           cache2mem_address1, coherence_msg_in1, coherence_address1, coherence_msg_out1,
           coherence_data1);
-
+		  
 //Coherence controller
-coherence_controller #(STATUS_BITS_L1, COHERENCE_BITS, OFFSET_BITS, DATA_WIDTH, ADDRESS_WIDTH,
+coherence_controller #(STATUS_BITS_L1, COHERENCE_BITS, INDEX_BITS_L1, OFFSET_BITS, DATA_WIDTH, ADDRESS_WIDTH,
                        MSG_BITS, NUM_L1_CACHES)
                        C_CTRL (clock, reset, cache2cc_data, cache2cc_address, cache2cc_msg,
                        cc2mem_data, cc2mem_address, cc2mem_msg, Lx2cache_msg, cache2cc_coh_msg,
                        cache2cc_coh_data, cc2cache_coh_msg, cc2cache_coh_address);
-
+					   
 //L2 cache
 Lxcache #(STATUS_BITS_L2, COHERENCE_BITS, OFFSET_BITS, DATA_WIDTH, NUMBER_OF_WAYS_L2,
           REPLACEMENT_MODE_BITS, ADDRESS_WIDTH, INDEX_BITS_L2, MSG_BITS, NUM_L1_CACHES, 2)
@@ -160,13 +159,11 @@ main_memory_interface #( STATUS_BITS_L2, COHERENCE_BITS, OFFSET_BITS, DATA_WIDTH
         cache2network_data, mem2interface_msg, mem2interface_address,
         mem2interface_data, interface2mem_msg, interface2mem_address,
         interface2mem_data);
-		
+			
 //Main memory
 main_memory #(DATA_WIDTH, ADDRESS_WIDTH, MSG_BITS, INDEX_BITS_MEMORY, NUM_MEMORY_PORTS, INIT_FILE)
     DUT_mem(clock, reset, {nw2mem_msg,interface2mem_msg}, {nw2mem_address,interface2mem_address},
     {nw2mem_data,interface2mem_data}, {mem2nw_msg,mem2interface_msg}, {mem2nw_address,
-    mem2interface_address}, {mem2nw_data,mem2interface_data});
-
-				
+    mem2interface_address}, {mem2nw_data,mem2interface_data});		
 
 endmodule
