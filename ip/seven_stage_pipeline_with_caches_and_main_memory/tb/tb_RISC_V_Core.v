@@ -216,4 +216,28 @@ end*/
     end
 end*/
 
+// ----------------------------------------------------------------------------
+// Counters for performance:
+//
+reg   [31:0] clock_cycles;
+
+always @(posedge clock) begin
+  if (reset) begin
+    clock_cycles <= 32'd0;
+  end else begin
+    clock_cycles <= clock_cycles+1;
+  end
+end
+
+// ----------------------------------------------------------------------------
+// End-of-Simulation Snooping:
+//
+always @(negedge clock) begin
+  if (CORE.PC_memory1[11:0] == 12'h0B0) begin
+    $display("Test Completed after %0d clock cycles", clock_cycles);
+    $display("The result is %0d", tb_RISC_V_Core.CORE.ID.registers.register_file[9]);
+    $finish;
+  end
+end
+
 endmodule
