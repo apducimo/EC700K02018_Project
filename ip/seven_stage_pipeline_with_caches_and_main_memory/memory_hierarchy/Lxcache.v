@@ -248,6 +248,10 @@ generate
 	end
 endgenerate
 
+// connect unused ports of dual_port_ram to ground
+assign we1         = {WAY_BITS{1'b0}};
+assign data_in1    = {LINE_WIDTH{1'b0}};
+assign address_in1 = {ADDRESS_WIDTH{1'b0}};
 
 assign i_reset       = reset | (state == RESET);
 assign current_index = (state == RESET) ? reset_counter
