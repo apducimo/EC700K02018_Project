@@ -65,10 +65,14 @@ localparam [6:0]R_TYPE  = 7'b0110011,
                 SYSCALL = 7'b1110011,
                 USERMODE = 7'b0001011; //addition of new opcode for user mode using custom0 extension
 
-always @(posedge clock)
-begin
-    if (opcode == USERMODE)
-        userMode = 1;
+always @(posedge clock or posedge reset) begin
+  if (reset) begin
+    userMode <= 1'b0;
+  end else begin
+    if (opcode == USERMODE) begin
+      userMode <= 1;
+    end
+  end
 end
 
 assign regWrite      = (opcode == R_TYPE) | (opcode == I_TYPE) | (opcode == LOAD)  |
