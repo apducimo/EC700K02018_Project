@@ -1,0 +1,1 @@
+../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/params.v
