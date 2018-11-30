@@ -61,9 +61,9 @@ output [DATA_WIDTH-1 : 0] data_out0, data_out1;
 output [ADDRESS_WIDTH-1 : 0] out_address0, out_address1;
 output ready0, ready1, valid0,valid1;
 
-output reg [MSG_BITS-1 : 0]      nw2mem_msg = 0;
-output reg [ADDRESS_WIDTH-1 : 0] nw2mem_address = 0;
-output reg [DATA_WIDTH-1 : 0]    nw2mem_data = 0;
+output wire [MSG_BITS-1 : 0]      nw2mem_msg;
+output wire [ADDRESS_WIDTH-1 : 0] nw2mem_address;
+output wire [DATA_WIDTH-1 : 0]    nw2mem_data;
 
 output wire [MSG_BITS-1 : 0] interface2mem_msg;
 output wire [ADDRESS_WIDTH-1 : 0] interface2mem_address;
@@ -102,9 +102,9 @@ wire [MSG_BITS-1 : 0] interface2cache_msg;
 wire [ADDRESS_WIDTH-1 : 0] interface2cache_address;
 wire [BUS_WIDTH_L2-1 : 0] interface2cache_data;
 
-reg [MSG_BITS-1 : 0] network2cache_msg          = 0;
-reg [ADDRESS_WIDTH-1 : 0] network2cache_address = 0;
-reg [DATA_WIDTH-1 : 0] network2cache_data       = 0;
+wire [MSG_BITS-1 : 0] network2cache_msg;
+wire [ADDRESS_WIDTH-1 : 0] network2cache_address;
+wire [DATA_WIDTH-1 : 0] network2cache_data;
 
 wire [MSG_BITS-1 : 0] cache2network_msg;
 wire [ADDRESS_WIDTH-1 : 0] cache2network_address;
@@ -128,6 +128,13 @@ assign mem2cache_data1    = Lx2cache_data[1*BUS_WIDTH_L1 +: BUS_WIDTH_L1];
 assign mem2cache_msg0     = Lx2cache_msg[0*MSG_BITS +: MSG_BITS];
 assign mem2cache_msg1     = Lx2cache_msg[1*MSG_BITS +: MSG_BITS];
 
+assign nw2mem_msg = 0;
+assign nw2mem_address = 0;
+assign nw2mem_data = 0;
+
+assign network2cache_msg = 0;
+assign network2cache_address = 0;
+assign network2cache_data = 0;
 
 //instantiate modules
 //L1 cache 0
