@@ -16,9 +16,11 @@ reg [DATA_WIDTH-1 : 0] data_reg0, data_reg1;
 //(* ramstyle = "M4K,no_rw_check" *) reg [DATA_WIDTH-1 : 0] mem [0 : DEPTH-1];
 reg [DATA_WIDTH-1 : 0] mem [0 : DEPTH-1];
 
+`ifndef SYNTHESIS
 initial begin
     $readmemh(INIT_FILE, mem);
 end
+`endif
 
 always @(posedge clock)begin
 	if(we0)
