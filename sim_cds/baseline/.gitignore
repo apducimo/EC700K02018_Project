@@ -1,0 +1,5 @@
+*.log
+*.history
+.simvision
+*.shm
+xcelium.d
