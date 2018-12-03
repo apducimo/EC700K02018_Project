@@ -33,5 +33,4 @@
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/fifo.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/replacement_controller_lx.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru_lx.v
-
-//-defparam tb_RISC_V_Core.PROGRAM=\"../../software/applications/binaries/gcd.mem\"
+-define SYNTHESIS
