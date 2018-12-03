@@ -46,18 +46,18 @@ integer log_file;
 
 
 wire              [2:0] interface2mem_msg;
-wire [ADDRESS_BITS-1:0] interface2mem_address;
+wire   [ADDRESS_BITS:0] interface2mem_address;
 wire             [31:0] interface2mem_data;
 
 wire              [2:0] mem2interface_msg;
-wire [ADDRESS_BITS-1:0] mem2interface_address;
+wire   [ADDRESS_BITS:0] mem2interface_address;
 wire             [31:0] mem2interface_data;
 
 wire              [2:0] mm2lxb_msg;
-wire [ADDRESS_BITS-1:0] mm2lxb_address;
+wire   [ADDRESS_BITS:0] mm2lxb_address;
 wire             [31:0] mm2lxb_data;
 wire              [2:0] lxb2mm_msg;
-wire [ADDRESS_BITS-1:0] lxb2mm_address;
+wire   [ADDRESS_BITS:0] lxb2mm_address;
 wire             [31:0] lxb2mm_data;
 
 RISC_V_Core #(
@@ -101,11 +101,15 @@ RISC_V_Core #(
 // ----------------------------------------------------------------------------
 // DRAM
 //
-//Main memory
+reg [31:0] enc_dram_hex32 [0:4095];
+reg [31:0] pln_dram_hex32 [0:4095];
+
+integer ii;
+
 main_memory #(.DATA_WIDTH    (32),
-              .ADDRESS_WIDTH (ADDRESS_BITS),
+              .ADDRESS_WIDTH (ADDRESS_BITS+32'd1),
               .MSG_BITS      (3),
-              .INDEX_BITS    (11),
+              .INDEX_BITS    (ADDRESS_BITS+32'd1),
               .NUM_PORTS     (2),
               .INIT_FILE     (PROGRAM)
              )
@@ -120,6 +124,15 @@ main_memory #(.DATA_WIDTH    (32),
     .data_out    ({mm2lxb_data,    mem2interface_data})
   );		
 
+initial begin
+  $readmemh(PROGRAM,           pln_dram_hex32);
+  $readmemh({PROGRAM, ".enc"}, enc_dram_hex32);
+
+  for (ii=0; ii<4096; ii=ii+1) begin
+    DUT_mem.BRAM.mem[4096+ii] = pln_dram_hex32[ii];
+    DUT_mem.BRAM.mem[ii]      = enc_dram_hex32[ii];
+  end
+end
 
 // ----------------------------------------------------------------------------
 //
@@ -221,56 +234,6 @@ always @(negedge clock)begin
   end
 end
 
-// memory writes
-/*always @(negedge clock)begin
-    if(CORE.EU_MU.memWrite_memory1)begin
-        $display("PC_memory1:%h | instruction:%h | write_addr:%h | write_data:%h",
-            CORE.EU_MU.PC_memory1,
-            CORE.EU_MU.instruction_memory1, CORE.EU_MU.ALU_result_memory1,
-            CORE.EU_MU.store_data_memory1);
-
-        $fdisplay(log_file, "PC_memory1:%h | instruction:%h | write_addr:%h | write_data:%h",
-            CORE.EU_MU.PC_memory1,
-            CORE.EU_MU.instruction_memory1, CORE.EU_MU.ALU_result_memory1,
-            CORE.EU_MU.store_data_memory1);
-    end
-end*/
-
-//memory reads
-/*always @(negedge clock)begin
-    if(CORE.EU_MU.memRead_memory1)begin
-        $display("PC_memory1:%h | instruction:%h | read_addr:%h",
-            CORE.EU_MU.PC_memory1, CORE.EU_MU.instruction_memory1,
-            CORE.EU_MU.ALU_result_memory1);
-        $fdisplay(log_file, "PC_memory1:%h | instruction:%h | read_addr:%h",
-            CORE.EU_MU.PC_memory1, CORE.EU_MU.instruction_memory1,
-            CORE.EU_MU.ALU_result_memory1);
-    end
-end*/
-
-/*always @(negedge clock)begin
-    if(CORE.MU_WB.load_data_valid)begin
-        $display("load_data_addr:%h | load_data:%h",
-            CORE.MU_WB.load_data_addr, CORE.MU_WB.load_data_memory2);
-        $fdisplay(log_file, "load_data_addr:%h | load_data:%h",
-            CORE.MU_WB.load_data_addr, CORE.MU_WB.load_data_memory2);
-    end
-end*/
-
-//write back
-/*always @(negedge clock)begin
-    if(CORE.MU_WB.opwrite_writeback & CORE.MU_WB.opSel_writeback &
-    ~CORE.MU_WB.stall_wb)begin
-        $display("PC_wb:%h | instruction_wb:%h | RD:%h | data_wb:%h | data_addr:%h",
-            CORE.MU_WB.PC_writeback, CORE.MU_WB.instruction_writeback,
-            CORE.MU_WB.opReg_writeback, CORE.MU_WB.load_data_writeback,
-            CORE.MU_WB.wb_data_addr);
-        $fdisplay(log_file, "PC_wb:%h | instruction_wb:%h | RD:%h | data_wb:%h | data_addr:%h",
-            CORE.MU_WB.PC_writeback, CORE.MU_WB.instruction_writeback,
-            CORE.MU_WB.opReg_writeback, CORE.MU_WB.load_data_writeback,
-            CORE.MU_WB.wb_data_addr);
-    end
-end*/
 
 // ----------------------------------------------------------------------------
 // Counters for performance:
