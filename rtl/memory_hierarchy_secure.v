@@ -45,7 +45,9 @@ lxb2mm_address,
 lxb2mm_data,
 mm2lxb_msg,
 mm2lxb_address,
-mm2lxb_data
+mm2lxb_data,
+
+secure_op
 );
 
 //localparams
@@ -81,6 +83,8 @@ output wire    [DATA_WIDTH-1:0] lxb2mm_data;
 input            [MSG_BITS-1:0] mm2lxb_msg;
 input       [ADDRESS_WIDTH-1:0] mm2lxb_address;
 input          [DATA_WIDTH-1:0] mm2lxb_data;
+
+input                           secure_op;
 
 wire [BUS_WIDTH_L1-1 : 0] cache2mem_data0, cache2mem_data1;
 wire [ADDRESS_WIDTH-1 : 0] cache2mem_address0, cache2mem_address1;
@@ -186,7 +190,7 @@ L1cache #(.STATUS_BITS           (STATUS_BITS_L1),
         .cache2mem_data       (cache2mem_data0), 
         .cache2mem_address    (cache2mem_address0),
 
-        .secure_op            (1'd1),
+        .secure_op            (secure_op),
         .cache2bypass_msg     (cache2bypass_msg0),
         .cache2bypass_address (cache2bypass_address0),
         .cache2bypass_data    (cache2bypass_data0),
@@ -234,7 +238,7 @@ L1cache #(.STATUS_BITS           (STATUS_BITS_L1),
         .cache2mem_data       (cache2mem_data1), 
         .cache2mem_address    (cache2mem_address1),
 
-        .secure_op            (1'd1),
+        .secure_op            (secure_op),
         .bypass2cache_msg     (bypass2cache_msg1),
         .bypass2cache_data    (bypass2cache_data1),
         .bypass2cache_address (bypass2cache_address1),

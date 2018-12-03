@@ -200,6 +200,7 @@ wire [DATA_WIDTH-1:0] d_mem_in_data;
 wire d_mem_read;
 wire d_mem_write;
 
+wire userMode;
 
 // Assignments to make debugging easier
 assign current_PC         = inst_PC_fetch;
@@ -264,7 +265,9 @@ memory_hierarchy #(
     .lxb2mm_data           (lxb2mm_data),
     .mm2lxb_msg            (mm2lxb_msg),
     .mm2lxb_address        (mm2lxb_address),
-    .mm2lxb_data           (mm2lxb_data)
+    .mm2lxb_data           (mm2lxb_data),
+
+    .secure_op             (~userMode)
 );
 
 
@@ -411,6 +414,9 @@ control_unit #(
   .regWrite(regWrite_decode),
   .rs1_used(rs1_used),
   .rs2_used(rs2_used),
+
+  .userMode(userMode),
+
 
   .report(report)
 );
