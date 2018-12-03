@@ -60,18 +60,18 @@ module RISC_V_Core #(
   output [ADDRESS_BITS-1:0] current_PC,
 
   output              [2:0] interface2mem_msg,
-  output [ADDRESS_BITS-1:0] interface2mem_address,
+  output   [ADDRESS_BITS:0] interface2mem_address,
   output             [31:0] interface2mem_data,
 
   input               [2:0] mem2interface_msg,
-  input  [ADDRESS_BITS-1:0] mem2interface_address,
+  input    [ADDRESS_BITS:0] mem2interface_address,
   input              [31:0] mem2interface_data,
 
   output              [2:0] lxb2mm_msg,
-  output [ADDRESS_BITS-1:0] lxb2mm_address,
+  output   [ADDRESS_BITS:0] lxb2mm_address,
   output             [31:0] lxb2mm_data,
   input               [2:0] mm2lxb_msg,
-  input  [ADDRESS_BITS-1:0] mm2lxb_address,
+  input    [ADDRESS_BITS:0] mm2lxb_address,
   input              [31:0] mm2lxb_data
 
 );
@@ -254,23 +254,24 @@ memory_hierarchy #(
     .valid1(d_mem_valid),
 
     .interface2mem_msg     (interface2mem_msg),
-    .interface2mem_address (interface2mem_address),
+    .interface2mem_address (interface2mem_address[ADDRESS_BITS-1:0]),
     .interface2mem_data    (interface2mem_data),
     .mem2interface_msg     (mem2interface_msg),
-    .mem2interface_address (mem2interface_address),
+    .mem2interface_address (mem2interface_address[ADDRESS_BITS-1:0]),
     .mem2interface_data    (mem2interface_data),
 
     .lxb2mm_msg            (lxb2mm_msg),
-    .lxb2mm_address        (lxb2mm_address),
+    .lxb2mm_address        (lxb2mm_address[ADDRESS_BITS-1:0]),
     .lxb2mm_data           (lxb2mm_data),
     .mm2lxb_msg            (mm2lxb_msg),
-    .mm2lxb_address        (mm2lxb_address),
+    .mm2lxb_address        (mm2lxb_address[ADDRESS_BITS-1:0]),
     .mm2lxb_data           (mm2lxb_data),
 
     .secure_op             (~userMode)
 );
 
-
+assign interface2mem_address[ADDRESS_BITS] = 1'b1;
+assign lxb2mm_address[ADDRESS_BITS] = userMode;
 
 fetch_unit #(
   .CORE(CORE),
