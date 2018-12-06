@@ -23,7 +23,11 @@
 
  module tb_RISC_V_Core(); 
 
+parameter INDEX_BITS = 6;
+parameter OFFSET_BITS = 3;
+parameter ADDRESS_BITS = 12;
 parameter LOG_FILE = "mandelbrot_instructions_dcache.log";
+parameter PROGRAM  = "../short_mandelbrot.mem";
  
 reg clock, reset, start; 
 reg [19:0] prog_address; 
@@ -37,30 +41,102 @@ reg          from_peripheral_valid;
 wire [1:0]  to_peripheral;
 wire [31:0] to_peripheral_data;
 wire        to_peripheral_valid;
-wire secMode;
+
 integer log_file;
 
 
-// module RISC_V_Core #(parameter CORE = 0, DATA_WIDTH = 32, INDEX_BITS = 6, OFFSET_BITS = 3, ADDRESS_BITS = 20)
-RISC_V_Core CORE (
-		  .clock(clock), 
-		  .reset(reset), 
-		  .start(start), 
-		  .prog_address(prog_address[11:0]),	
-		  .from_peripheral(from_peripheral),
-       	  .from_peripheral_data(from_peripheral_data),
-          .from_peripheral_valid(from_peripheral_valid),
-          .to_peripheral(to_peripheral),
-		  .to_peripheral_data(to_peripheral_data),
-		  .to_peripheral_valid(to_peripheral_valid),
+wire              [2:0] interface2mem_msg;
+wire   [ADDRESS_BITS:0] interface2mem_address;
+wire             [31:0] interface2mem_data;
+
+wire              [2:0] mem2interface_msg;
+wire   [ADDRESS_BITS:0] mem2interface_address;
+wire             [31:0] mem2interface_data;
+
+wire              [2:0] mm2lxb_msg;
+wire   [ADDRESS_BITS:0] mm2lxb_address;
+wire             [31:0] mm2lxb_data;
+wire              [2:0] lxb2mm_msg;
+wire   [ADDRESS_BITS:0] lxb2mm_address;
+wire             [31:0] lxb2mm_data;
+
+RISC_V_Core #(
+  .INDEX_BITS(INDEX_BITS),
+  .OFFSET_BITS(OFFSET_BITS),
+  .ADDRESS_BITS(ADDRESS_BITS),
+  .PROGRAM(PROGRAM)
+  ) CORE (
+    .clock(clock), 
+    .reset(reset), 
+    .start(start), 
+    .prog_address(prog_address[11:0]),	
+    .from_peripheral(from_peripheral),
+    .from_peripheral_data(from_peripheral_data),
+    .from_peripheral_valid(from_peripheral_valid),
+    .to_peripheral(to_peripheral),
+    .to_peripheral_data(to_peripheral_data),
+    .to_peripheral_valid(to_peripheral_valid),
           
-          .isp_address(12'd0),
-          .isp_data(0),
-          .isp_write(1'b0),
-		  .report(report),
-		  .current_PC()
+    .isp_address(12'd0),
+    .isp_data(0),
+    .isp_write(1'b0),
+    .report(report),
+    .current_PC(),
+
+    .interface2mem_msg     (interface2mem_msg),
+    .interface2mem_address (interface2mem_address),
+    .interface2mem_data    (interface2mem_data),
+    .mem2interface_msg     (mem2interface_msg),
+    .mem2interface_address (mem2interface_address),
+    .mem2interface_data    (mem2interface_data),
+
+    .lxb2mm_msg            (lxb2mm_msg),
+    .lxb2mm_address        (lxb2mm_address),
+    .lxb2mm_data           (lxb2mm_data),
+    .mm2lxb_msg            (mm2lxb_msg),
+    .mm2lxb_address        (mm2lxb_address),
+    .mm2lxb_data           (mm2lxb_data)
 ); 
 
+// ----------------------------------------------------------------------------
+// DRAM
+//
+reg [31:0] enc_dram_hex32 [0:4095];
+reg [31:0] pln_dram_hex32 [0:4095];
+
+integer ii;
+
+main_memory #(.DATA_WIDTH    (32),
+              .ADDRESS_WIDTH (ADDRESS_BITS+32'd1),
+              .MSG_BITS      (3),
+              .INDEX_BITS    (ADDRESS_BITS+32'd1),
+              .NUM_PORTS     (2),
+              .INIT_FILE     (PROGRAM)
+             )
+  DUT_mem(
+    .clock       (clock),
+    .reset       (reset),
+    .msg_in      ({lxb2mm_msg,     interface2mem_msg}),
+    .address     ({lxb2mm_address, interface2mem_address}),
+    .data_in     ({lxb2mm_data,    interface2mem_data}),
+    .msg_out     ({mm2lxb_msg,     mem2interface_msg}),
+    .address_out ({mm2lxb_address, mem2interface_address}),
+    .data_out    ({mm2lxb_data,    mem2interface_data})
+  );		
+
+initial begin
+  $readmemh(PROGRAM,           pln_dram_hex32);
+  $readmemh({PROGRAM, ".enc"}, enc_dram_hex32);
+
+  for (ii=0; ii<4096; ii=ii+1) begin
+    DUT_mem.BRAM.mem[4096+ii] = pln_dram_hex32[ii];
+    DUT_mem.BRAM.mem[ii]      = enc_dram_hex32[ii];
+  end
+end
+
+// ----------------------------------------------------------------------------
+//
+//
     // Clock generator
     always #1 clock = ~clock;
 
@@ -73,8 +149,7 @@ RISC_V_Core CORE (
 
           clock  = 0;
           reset  = 1;
-          report = 0;
-          secMode = 0; 
+          report = 0; 
           prog_address = 'h0;
           repeat (2) @ (posedge clock);
           
@@ -88,7 +163,7 @@ RISC_V_Core CORE (
 
 
 // print cache read addresses and data out.
-reg [CORE.ADDRESS_BITS-1 : 0] addr0, addr1;
+reg [ADDRESS_BITS-1 : 0] addr0, addr1;
 reg req0, req1;
 
 always @(negedge clock)begin
@@ -141,7 +216,6 @@ end
 
 // instruction at execute stage
 always @(negedge clock)begin
-  $display("SecureMode %b", secMode);
   if(~(CORE.regWrite_execute==1'b0 & CORE.memWrite_execute==1'b0 & CORE.branch_op_execute==1'b0
   & CORE.next_PC_select_execute==2'b00 & CORE.rd_execute==5'b00000) & 
   ~(CORE.regWrite_execute==1'b1 & CORE.memWrite_execute==1'b0 & CORE.branch_op_execute==1'b0
@@ -160,55 +234,29 @@ always @(negedge clock)begin
   end
 end
 
-// memory writes
-/*always @(negedge clock)begin
-    if(CORE.EU_MU.memWrite_memory1)begin
-        $display("PC_memory1:%h | instruction:%h | write_addr:%h | write_data:%h",
-            CORE.EU_MU.PC_memory1,
-            CORE.EU_MU.instruction_memory1, CORE.EU_MU.ALU_result_memory1,
-            CORE.EU_MU.store_data_memory1);
 
-        $fdisplay(log_file, "PC_memory1:%h | instruction:%h | write_addr:%h | write_data:%h",
-            CORE.EU_MU.PC_memory1,
-            CORE.EU_MU.instruction_memory1, CORE.EU_MU.ALU_result_memory1,
-            CORE.EU_MU.store_data_memory1);
-    end
-end*/
+// ----------------------------------------------------------------------------
+// Counters for performance:
+//
+reg   [31:0] clock_cycles;
 
-//memory reads
-/*always @(negedge clock)begin
-    if(CORE.EU_MU.memRead_memory1)begin
-        $display("PC_memory1:%h | instruction:%h | read_addr:%h",
-            CORE.EU_MU.PC_memory1, CORE.EU_MU.instruction_memory1,
-            CORE.EU_MU.ALU_result_memory1);
-        $fdisplay(log_file, "PC_memory1:%h | instruction:%h | read_addr:%h",
-            CORE.EU_MU.PC_memory1, CORE.EU_MU.instruction_memory1,
-            CORE.EU_MU.ALU_result_memory1);
-    end
-end*/
+always @(posedge clock) begin
+  if (reset) begin
+    clock_cycles <= 32'd0;
+  end else begin
+    clock_cycles <= clock_cycles+1;
+  end
+end
 
-/*always @(negedge clock)begin
-    if(CORE.MU_WB.load_data_valid)begin
-        $display("load_data_addr:%h | load_data:%h",
-            CORE.MU_WB.load_data_addr, CORE.MU_WB.load_data_memory2);
-        $fdisplay(log_file, "load_data_addr:%h | load_data:%h",
-            CORE.MU_WB.load_data_addr, CORE.MU_WB.load_data_memory2);
-    end
-end*/
-
-//write back
-/*always @(negedge clock)begin
-    if(CORE.MU_WB.opwrite_writeback & CORE.MU_WB.opSel_writeback &
-    ~CORE.MU_WB.stall_wb)begin
-        $display("PC_wb:%h | instruction_wb:%h | RD:%h | data_wb:%h | data_addr:%h",
-            CORE.MU_WB.PC_writeback, CORE.MU_WB.instruction_writeback,
-            CORE.MU_WB.opReg_writeback, CORE.MU_WB.load_data_writeback,
-            CORE.MU_WB.wb_data_addr);
-        $fdisplay(log_file, "PC_wb:%h | instruction_wb:%h | RD:%h | data_wb:%h | data_addr:%h",
-            CORE.MU_WB.PC_writeback, CORE.MU_WB.instruction_writeback,
-            CORE.MU_WB.opReg_writeback, CORE.MU_WB.load_data_writeback,
-            CORE.MU_WB.wb_data_addr);
-    end
-end*/
+// ----------------------------------------------------------------------------
+// End-of-Simulation Snooping:
+//
+always @(negedge clock) begin
+  if (CORE.PC_memory1[11:0] == 12'h0B0) begin
+    $display("Test Completed after %0d clock cycles", clock_cycles);
+    $display("The result is %0d", tb_RISC_V_Core.CORE.ID.registers.register_file[9]);
+    $finish;
+  end
+end
 
 endmodule

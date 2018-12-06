@@ -1,6 +1,8 @@
-../../rtl/RISC_V_Core.v
-../../tb/tb_RISC_V_Core.v
-../../rtl/memory_hierarchy.v
+../../rtl/RISC_V_Core_secure.v
+../../rtl/Lxbypass.v
+-F ../../rtl/aes_cipher_block_128.f
+../../tb/tb_RISC_V_Core_secure.v
+../../rtl/memory_hierarchy_secure.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/fetch.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/fetch_pipe.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/decode.v
@@ -12,7 +14,7 @@
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/memory.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/memory_pipe.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/writeback.v
-../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/L1cache.v
+../../rtl/L1cache_secure.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/Lxcache.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/coherence_controller.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/main_memory_interface.v
@@ -31,5 +33,4 @@
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/fifo.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/replacement_controller_lx.v
 ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru_lx.v
-
-//-defparam tb_RISC_V_Core.PROGRAM=\"../../software/applications/binaries/gcd.mem\"
+-define SYNTHESIS
