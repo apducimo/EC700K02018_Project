@@ -239,6 +239,22 @@ always @(negedge clock)begin
 end
 `endif
 
+// Line locking demo snooping.
+`ifdef CACHELINE_LOCK_DEMO
+  always @(negedge clock)begin
+    if(CORE.PC_execute == 12'h004)
+      $display("Start execution. userMode:%b", CORE.CU.userMode);
+    if(CORE.instruction_memory1 == 32'h0000000b)
+      $display("Change execution mode. userMode:%b", CORE.CU.userMode);
+    if(CORE.d_mem_write & (CORE.d_mem_address==12'd250|CORE.d_mem_address==12'd251|
+    CORE.d_mem_address==12'd252|CORE.d_mem_address==12'd253))
+      $display("Memory write: address:%d | data:%d", CORE.d_mem_address<<2, CORE.d_mem_in_data);
+    if(CORE.memRead_writeback & CORE.write_reg_writeback!=0 & (CORE.ALU_result_writeback==12'd1000|
+    CORE.ALU_result_writeback==12'd1004|CORE.ALU_result_writeback==12'd1008|CORE.ALU_result_writeback==12'd1012))
+      $display("Memory read: address:%d | data:%d | WB_register:%d", CORE.ALU_result_writeback,
+          CORE.memory_data_writeback, CORE.write_reg_writeback);
+  end
+`endif
 
 // ----------------------------------------------------------------------------
 // Counters for performance:
