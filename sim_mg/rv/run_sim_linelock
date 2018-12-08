@@ -1,0 +1,50 @@
+#!/bin/bash
+
+MODELSIM=/home/sahanb/intelFPGA_lite/18.0/modelsim_ase/bin
+
+$MODELSIM/vlib work
+
+$MODELSIM/vcom -f  ../../rtl/aes_cipher_block_128_mg.f
+$MODELSIM/vlog ../../rtl/RISC_V_Core_secure.v
+$MODELSIM/vlog ../../rtl/Lxbypass.v
+$MODELSIM/vlog ../../rtl/memory_hierarchy_secure.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/fetch.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/fetch_pipe.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/decode.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/decode_pipe.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/stallControl.v
+$MODELSIM/vlog ../../rtl/control_unit.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/execute.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/execute_pipe.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/memory.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/memory_pipe.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/writeback.v
+$MODELSIM/vlog ../../rtl/L1cache_secure.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/Lxcache.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/coherence_controller.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/main_memory_interface.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/regFile.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/src/ALU.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/one_hot_decoder.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/arbiter.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/main_memory.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/priority_encoder.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/bram.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/dual_port_ram.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/replacement_controller.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/fifo_arbiter.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/empty_way_select.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/fifo.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/replacement_controller_lx.v
+$MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru_lx.v
+
+### uncomment these lines for demo with no change in execution mode ###
+#$MODELSIM/vlog +define+STOP_ADDR="12'h0bc" +define+CACHELINE_LOCK_DEMO ../../tb/tb_RISC_V_Core_secure_demo.v
+#$MODELSIM/vsim -GPROGRAM=\"../../tb/test_programs/cache_line_lock_check/gcd_linelock0.mem\" -voptargs=+acc work.tb_RISC_V_Core -do run_sim_linelock.tcl &
+#######################################################################
+
+### uncomment these lines to demo cache line locking feature with execution mode change to user mode ###
+$MODELSIM/vlog +define+STOP_ADDR="12'h0c4" +define+CACHELINE_LOCK_DEMO ../../tb/tb_RISC_V_Core_secure_demo.v
+$MODELSIM/vsim -GPROGRAM=\"../../tb/test_programs/cache_line_lock_check/gcd_linelock1.mem\" -voptargs=+acc work.tb_RISC_V_Core -do run_sim_linelock.tcl &
+########################################################################################################
