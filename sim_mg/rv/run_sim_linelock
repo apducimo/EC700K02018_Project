@@ -40,11 +40,11 @@ $MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_
 $MODELSIM/vlog ../../ip/seven_stage_pipeline_with_caches_and_main_memory/memory_hierarchy/lru_lx.v
 
 ### uncomment these lines for demo with no change in execution mode ###
-#$MODELSIM/vlog +define+STOP_ADDR="12'h0bc" +define+CACHELINE_LOCK_DEMO ../../tb/tb_RISC_V_Core_secure.v
+#$MODELSIM/vlog +define+STOP_ADDR="12'h0bc" +define+CACHELINE_LOCK_DEMO ../../tb/tb_RISC_V_Core_secure_demo.v
 #$MODELSIM/vsim -GPROGRAM=\"../../tb/test_programs/cache_line_lock_check/gcd_linelock0.mem\" -voptargs=+acc work.tb_RISC_V_Core -do run_sim_linelock.tcl &
 #######################################################################
 
 ### uncomment these lines to demo cache line locking feature with execution mode change to user mode ###
-$MODELSIM/vlog +define+STOP_ADDR="12'h0c4" +define+CACHELINE_LOCK_DEMO ../../tb/tb_RISC_V_Core_secure.v
+$MODELSIM/vlog +define+STOP_ADDR="12'h0c4" +define+CACHELINE_LOCK_DEMO ../../tb/tb_RISC_V_Core_secure_demo.v
 $MODELSIM/vsim -GPROGRAM=\"../../tb/test_programs/cache_line_lock_check/gcd_linelock1.mem\" -voptargs=+acc work.tb_RISC_V_Core -do run_sim_linelock.tcl &
 ########################################################################################################
