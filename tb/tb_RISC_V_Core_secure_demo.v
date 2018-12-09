@@ -129,8 +129,15 @@ initial begin
   $readmemh({PROGRAM, ".enc"}, enc_dram_hex32);
 
   for (ii=0; ii<4096; ii=ii+1) begin
-    DUT_mem.BRAM.mem[4096+ii] = pln_dram_hex32[ii];
-    DUT_mem.BRAM.mem[ii]      = enc_dram_hex32[ii];
+	if(pln_dram_hex32[ii] === 32'bX)
+		DUT_mem.BRAM.mem[4096+ii] = 32'd0;
+	else
+		DUT_mem.BRAM.mem[4096+ii] = pln_dram_hex32[ii];
+		
+	if(enc_dram_hex32[ii] === 32'bX)
+		DUT_mem.BRAM.mem[ii]      = 32'd0;
+	else
+		DUT_mem.BRAM.mem[ii]      = enc_dram_hex32[ii];
   end
 end
 
